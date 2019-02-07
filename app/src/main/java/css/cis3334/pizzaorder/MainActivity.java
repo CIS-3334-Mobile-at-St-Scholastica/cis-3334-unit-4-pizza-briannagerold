@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
 
         pizzaOrder = new PizzaOrder(this);
 
-        rbSmall.setText(rbSmall.getText() + " -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.SMALL));
-        rbMedium.setText(rbMedium.getText() + " -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.MEDIUM));
-        rbLarge.setText(rbLarge.getText() + " -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.LARGE));
+        rbSmall.append(" -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.SMALL));
+        rbMedium.append(" -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.MEDIUM));
+        rbLarge.append(" -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.LARGE));
     }
 
     @Override
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
         String orderDescription = "No orders yet";
 
         // ****** For the Practice Activity, students need to call to OrderPizza here
+        orderDescription = pizzaOrder.OrderPizza("Peperoni", "large", false);
         // ****** For the Assignment, students will modify the order to fit the type of pizza the user selects using the UI widgets
 
         //display a pop up message for a long period of time
@@ -71,5 +72,6 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
         // add this pizza to the textview the lists the pizzas
         txtPizzasOrdered.append(orderDescription+"\n");
 
+        txtTotal.setText("Total Due: " + pizzaOrder.getTotalBill().toString());
     }
 }
