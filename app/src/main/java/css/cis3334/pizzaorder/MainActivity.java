@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
         rbSmall.append(" -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.SMALL));
         rbMedium.append(" -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.MEDIUM));
         rbLarge.append(" -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.LARGE));
+
+        rbSmall.setChecked(true);
     }
 
     @Override
@@ -60,18 +62,40 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
 
     public void onClickOrder(View view) {
         // ****** For the Assignment, students need to add code here to get information from the UI widgets...
+        //set if it is a delivery order
+        pizzaOrder.setDelivery(chkbxDelivery.isChecked());
 
-        String orderDescription = "No orders yet";
+        //do they want extra cheese?
+        boolean extraCheese = false;
+        if(chkbxCheese.isChecked()){
+            extraCheese = true;
+        }
+
+        //get the size of the pizza
+        String pizzaSize = "small";
+        if(rbMedium.isChecked()){
+            pizzaSize = "medium";
+        }
+        else if (rbLarge.isChecked()){
+            pizzaSize = "large";
+        }
+
+        //get the topping for the spinner
+        String pizzaTopping = spinnerToppings.getSelectedItem().toString();
 
         // ****** For the Practice Activity, students need to call to OrderPizza here
-        orderDescription = pizzaOrder.OrderPizza("Peperoni", "large", false);
+        //String orderDescription = pizzaOrder.OrderPizza("Peperoni", "large", false);
         // ****** For the Assignment, students will modify the order to fit the type of pizza the user selects using the UI widgets
+
+        //order the selected pizza
+        String orderDescription = pizzaOrder.OrderPizza(pizzaTopping, pizzaSize, extraCheese);
 
         //display a pop up message for a long period of time
         Toast.makeText(getApplicationContext(), "You have ordered a "+orderDescription , Toast.LENGTH_LONG).show();
         // add this pizza to the textview the lists the pizzas
         txtPizzasOrdered.append(orderDescription+"\n");
 
+        //set the text field for the total due
         txtTotal.setText("Total Due: " + pizzaOrder.getTotalBill().toString());
     }
 }
