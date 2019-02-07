@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
     TextView txtPizzasOrdered;
     Spinner spinnerToppings;
 
+    PizzaOrderInterface pizzaOrder;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
         // Set up the Spinner
         spinnerToppings = (Spinner) findViewById(R.id.spinnerToppings);
 
+        pizzaOrder = new PizzaOrder(this);
+
+        rbSmall.setText(rbSmall.getText() + " -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.SMALL));
+        rbMedium.setText(rbMedium.getText() + " -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.MEDIUM));
+        rbLarge.setText(rbLarge.getText() + " -- $" + pizzaOrder.getPrice(Pizza.pizzaSize.LARGE));
     }
 
     @Override
